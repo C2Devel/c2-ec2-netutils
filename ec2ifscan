@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Licensed under the MIT License. See the LICENSE accompanying this file
+# for the specific language governing permissions and limitations under
+# the License.
+
+if [ $UID -ne 0 ]; then
+  echo "error: ${0##*/} must be run as root"
+  exit 1
+fi
+
+logger --tag ec2net "[ec2ifscan] Scanning for unconfigured interfaces"
+for dev in $(find /sys/class/net/eth*); do
+  if [ ${dev##*/} == "eth0" ]; then
+    continue
+  fi
+
+  cfg="/etc/sysconfig/network-scripts/ifcfg-${dev##*/}"
+  state=$(cat ${dev}/operstate)
+  if [ ! -e "${cfg}" ] && [ "${state}" == "down" ]; then
+    echo 'add' > ${dev}/uevent &
+  fi
+done
