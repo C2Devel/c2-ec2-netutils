@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Licensed under the MIT License. See the LICENSE accompanying this file
+# for the specific language governing permissions and limitations under
+# the License.
+
+if [ $UID -ne 0 ]; then
+  echo "error: ${0##*/} must be run as root"
+  exit 1
+fi
+
+# Validate os-release
+release=$(grep -P '^\ID=' /etc/os-release | tr -d 'ID=')
+version=$(grep -oP "VERSION_ID=.\\K[0-9]+\\.[0-9]+" /etc/os-release | tr -d ".")
+if [ ${release} == "ubuntu" ]; then
+  if [ ${version} -lt 1804 ]; then
+    echo "c2-ec2-netutils is not supported ubuntu version less than 18.04"
+    exit 1
+  fi
+fi
+
+if [ ${release} == "ubuntu" ]; then
+    int_name="ens"
+    cfg_path="/etc/netplan"
+    extension=".yaml"
+  else
+    int_name="eth"
+    cfg_path="/etc/network/interfaces.d"
+    extension=".cfg"
+fi
+
+logger --tag ec2net "[ec2ifscan] Scanning for unconfigured interfaces"
+for dev in $(find /sys/class/net/${int_name}*); do
+  if [ ${dev##*/} == "eth0" ] || [ ${dev##*/} == "ens3" ]; then
+    continue
+  fi
+
+  cfg="${cfg_path}/config-${dev##*/}${extension}"
+  state=$(cat ${dev}/operstate)
+  if [ ! -e "${cfg}" ] && [ "${state}" == "down" ]; then
+    logger --tag ec2net "[ec2ifscan] Configuring ${dev##*/}"
+      echo 'add' > ${dev}/uevent
+  fi
+done

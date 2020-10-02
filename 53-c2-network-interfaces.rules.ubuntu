@@ -1,0 +1,7 @@
+# Licensed under the MIT License. See the LICENSE accompanying this file
+# for the specific language governing permissions and limitations under
+# the License.
+
+ACTION=="move", SUBSYSTEM=="net", KERNEL=="ens*", RUN+="/lib/udev/trigger-interface $env{INTERFACE}"
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="ens*", RUN+="/usr/sbin/ec2ifup $env{INTERFACE}"
+ACTION=="remove", SUBSYSTEM=="net", KERNEL=="ens*", RUN+="/usr/sbin/ec2ifdown $env{INTERFACE}"

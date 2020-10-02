@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ "$#" -eq 1 ]; then
+  INTERFACE="${1}"
+else
+  echo "interface is needed"
+  exit 1
+fi
+
+udevadm trigger --action=add --subsystem-match=net --property-match=INTERFACE=${INTERFACE}
