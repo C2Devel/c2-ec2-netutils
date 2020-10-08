@@ -1,0 +1,9 @@
+Package: c2-ec2-netutils
+Version: 1.1-1
+Section: utils
+Architecture: all
+Maintainer: Evgeny Kovalev <evgkovalev@croc.ru>
+Priority: extra
+Depends: curl, sed, at, isc-dhcp-client
+Description: c2-ec2-netutils contains a set of utilities for managing elastic network interfaces.
+Replaces: udev

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ -L "/usr/share/man/man8/ec2ifdown.8" ]; then
+  rm -f /usr/share/man/man8/ec2ifdown.8
+fi
+
+if [ -L "/etc/systemd/system/multi-user.target.wants/ec2net-scan.service" ]; then
+  rm -f /etc/systemd/system/multi-user.target.wants/ec2net-scan.service
+fi
+
+if [ -f "/etc/udev/rules.d/53-c2-network-interfaces.rules" ]; then
+  rm -f /etc/udev/rules.d/53-c2-network-interfaces.rules
+  echo "Removed old udev 53-c2-network-interfaces.rules"
+fi
+
+if [ -f "/etc/udev/rules.d/75-persistent-net-generator.rules" ]; then
+  rm -f /etc/udev/rules.d/75-persistent-net-generator.rules
+  echo "Removed old udev 75-persistent-net-generator.rules"
+fi
