@@ -1,3 +1,9 @@
+c2-ec2-netutils (1.1-2) stable; urgency=medium
+
+* Add support for Debian 11 where was renamed interfaces from eth to ens.
+
+-- Evgeny Kovalev <evgkovalev@croc.ru> Thu, 10 Feb 2022 17:00:00 +0300
+
 c2-ec2-netutils (1.1-1) stable; urgency=medium
 
 * Create package c2-ec2-netutils.
