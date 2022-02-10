@@ -11,22 +11,26 @@ fi
 
 # Validate os-release
 release=$(grep -P '^\ID=' /etc/os-release | tr -d 'ID=')
-version=$(grep -oP "VERSION_ID=.\\K[0-9]+\\.[0-9]+" /etc/os-release | tr -d ".")
 if [ ${release} == "ubuntu" ]; then
-  if [ ${version} -lt 1804 ]; then
+  ubuntu_version=$(grep -oP "VERSION_ID=.\\K[0-9]+\\.[0-9]+" /etc/os-release | tr -d ".")
+  if [ ${ubuntu_version} -lt 1804 ]; then
     echo "c2-ec2-netutils is not supported ubuntu version less than 18.04"
     exit 1
   fi
+  int_name="ens"
+  cfg_path="/etc/netplan"
+  extension=".yaml"
 fi
 
-if [ ${release} == "ubuntu" ]; then
-    int_name="ens"
-    cfg_path="/etc/netplan"
-    extension=".yaml"
-  else
+if [ ${release} == "debian" ]; then
+  debian_version=$(grep -oP "VERSION_ID=.\\K[0-9]+" /etc/os-release)
+  if [ ${debian_version} -lt 11 ]; then
     int_name="eth"
-    cfg_path="/etc/network/interfaces.d"
-    extension=".cfg"
+  else
+    int_name="ens"
+  fi
+  cfg_path="/etc/network/interfaces.d"
+  extension=".cfg"
 fi
 
 logger --tag ec2net "[ec2ifscan] Scanning for unconfigured interfaces"

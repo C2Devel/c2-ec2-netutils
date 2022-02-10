@@ -9,11 +9,20 @@ if [ ${release} == "ubuntu" ]; then
 fi
 
 if [ ${release} == "debian" ]; then
-  rm /etc/udev/rules.d/53-c2-network-interfaces.rules.ubuntu
-  rm /etc/udev/rules.d/75-persistent-net-generator.rules.ubuntu
-  rm /lib/udev/trigger-interface
-  mv /etc/udev/rules.d/53-c2-network-interfaces.rules.debian /etc/udev/rules.d/53-c2-network-interfaces.rules
-  mv /etc/udev/rules.d/75-persistent-net-generator.rules.debian /etc/udev/rules.d/75-persistent-net-generator.rules
+  version=$(grep -oP "VERSION_ID=.\\K[0-9]+" /etc/os-release)
+  if [ ${debian_version} -lt 11 ]; then
+    rm /etc/udev/rules.d/53-c2-network-interfaces.rules.ubuntu
+    rm /etc/udev/rules.d/75-persistent-net-generator.rules.ubuntu
+    rm /lib/udev/trigger-interface
+    mv /etc/udev/rules.d/53-c2-network-interfaces.rules.debian /etc/udev/rules.d/53-c2-network-interfaces.rules
+    mv /etc/udev/rules.d/75-persistent-net-generator.rules.debian /etc/udev/rules.d/75-persistent-net-generator.rules
+  else
+    # used ubuntu rules for debian because in version 11 interfaces was renamed from eth to ens
+    rm /etc/udev/rules.d/53-c2-network-interfaces.rules.debian
+    rm /etc/udev/rules.d/75-persistent-net-generator.rules.debian
+    mv /etc/udev/rules.d/53-c2-network-interfaces.rules.ubuntu /etc/udev/rules.d/53-c2-network-interfaces.rules
+    mv /etc/udev/rules.d/75-persistent-net-generator.rules.ubuntu /etc/udev/rules.d/75-persistent-net-generator.rules
+  fi
 fi
 
 systemctl enable ec2net-scan.service
