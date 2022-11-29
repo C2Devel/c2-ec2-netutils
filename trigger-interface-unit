@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ "$#" -eq 1 ]; then
+  INTERFACE="${1}"
+else
+  echo "interface is needed"
+  exit 1
+fi
+
+# Exit if we haven't reached network-online yet
+# because udev rule will handle this for us
+if ! systemctl is-active network-online.target 1> /dev/null; then
+  exit 0
+fi
+
+if systemctl is-active "ec2net-ifup@${INTERFACE}" 1> /dev/null; then
+  systemctl stop "ec2net-ifup@${INTERFACE}"
+fi
+
+systemctl start "ec2net-ifup@${INTERFACE}"

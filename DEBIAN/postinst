@@ -30,7 +30,11 @@ ln -s ec2ifup.8 /usr/share/man/man8/ec2ifdown.8
 
 chmod 0644 /etc/network/ec2net-functions
 chmod 0644 /lib/systemd/system/ec2net-scan.service
-chmod 0755 /lib/udev/trigger-interface
+chmod 0644 /lib/systemd/system/ec2net-ifup@.service
+if [ -f /lib/udev/trigger-interface ]; then
+  chmod 0755 /lib/udev/trigger-interface
+fi
+chmod 0755 /lib/udev/trigger-interface-unit
 chmod 0755 /lib/udev/write_net_rules
 chmod 0755 /lib/udev/rule_generator.functions
 chmod 0755 /usr/sbin/ec2ifup
