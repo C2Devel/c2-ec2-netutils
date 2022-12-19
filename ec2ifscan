@@ -33,6 +33,12 @@ if [ ${release} == "debian" ]; then
   extension=".cfg"
 fi
 
+if [ ${release} == "astra" ]; then
+  int_name="eth"
+  cfg_path="/etc/network/interfaces.d"
+  extension=".cfg"
+fi
+
 logger --tag ec2net "[ec2ifscan] Scanning for unconfigured interfaces"
 for dev in $(find /sys/class/net/${int_name}*); do
   if [ ${dev##*/} == "eth0" ] || [ ${dev##*/} == "ens3" ]; then

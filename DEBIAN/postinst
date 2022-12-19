@@ -25,6 +25,14 @@ if [ ${release} == "debian" ]; then
   fi
 fi
 
+if [ ${release} == "astra" ]; then
+  rm /etc/udev/rules.d/53-c2-network-interfaces.rules.ubuntu
+  rm /etc/udev/rules.d/75-persistent-net-generator.rules.ubuntu
+  rm /lib/udev/trigger-interface
+  mv /etc/udev/rules.d/53-c2-network-interfaces.rules.debian /etc/udev/rules.d/53-c2-network-interfaces.rules
+  mv /etc/udev/rules.d/75-persistent-net-generator.rules.debian /etc/udev/rules.d/75-persistent-net-generator.rules
+fi
+
 systemctl enable ec2net-scan.service
 ln -s ec2ifup.8 /usr/share/man/man8/ec2ifdown.8
 
