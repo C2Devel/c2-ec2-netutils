@@ -1,3 +1,9 @@
+c2-ec2-netutils (1.1-4) stable; urgency=medium
+
+* Fix grep -P regexes to match PCRE2 syntax.
+
+-- Georgy Melnikov <gmelnikov@croc.ru> Mon, 22 May 2023 17:00:00 +0300
+
 c2-ec2-netutils (1.1-3) stable; urgency=medium
 
 * Fix routes and route-policy rules for Debian-like distros.
