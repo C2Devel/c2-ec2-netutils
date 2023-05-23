@@ -116,8 +116,8 @@ PERSISTENT_DHCLIENT=yes
 DEFROUTE=no
 EOF
   cat <<- EOF > ${route_file}
-        default via ${gateway} dev ${INTERFACE} table ${RTABLE}
-        ${cidr} dev ${INTERFACE} proto kernel scope link src ${primary_ipv4} table ${RTABLE}
+default via ${gateway} dev ${INTERFACE} table ${RTABLE}
+${cidr} dev ${INTERFACE} scope link src ${primary_ipv4} table ${RTABLE}
 EOF
   cat <<- EOF > ${dhclient_conf}
 timeout 300;
