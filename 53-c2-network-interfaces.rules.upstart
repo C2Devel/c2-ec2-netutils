@@ -1,0 +1,6 @@
+# Licensed under the MIT License. See the LICENSE accompanying this file
+# for the specific language governing permissions and limitations under
+# the License.
+
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", IMPORT{program}="/bin/sleep 1"
+SUBSYSTEM=="net", KERNEL=="eth*", RUN+="/etc/sysconfig/network/scripts/c2-net.hotplug"
