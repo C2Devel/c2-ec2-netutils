@@ -1,6 +1,6 @@
 #!/bin/bash
 
-release=$(grep -P '^\ID=' /etc/os-release | tr -d 'ID=')
+release=$(grep -P '^ID=' /etc/os-release | tr -d 'ID=')
 if [ ${release} == "ubuntu" ]; then
   rm /etc/udev/rules.d/53-c2-network-interfaces.rules.debian
   rm /etc/udev/rules.d/75-persistent-net-generator.rules.debian

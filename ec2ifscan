@@ -10,7 +10,7 @@ if [ $UID -ne 0 ]; then
 fi
 
 # Validate os-release
-release=$(grep -P '^\ID=' /etc/os-release | tr -d 'ID=')
+release=$(grep -P '^ID=' /etc/os-release | tr -d 'ID=')
 if [ ${release} == "ubuntu" ]; then
   ubuntu_version=$(grep -oP "VERSION_ID=.\\K[0-9]+\\.[0-9]+" /etc/os-release | tr -d ".")
   if [ ${ubuntu_version} -lt 1804 ]; then

@@ -41,7 +41,7 @@ fi
 RULES_FILE='/etc/udev/rules.d/69-c2-persistent-net.rules'
 
 # Validate os-release
-release=$(grep -P '^\ID=' /etc/os-release | tr -d 'ID=')
+release=$(grep -P '^ID=' /etc/os-release | tr -d 'ID=')
 version=$(grep -oP "VERSION_ID=.\\K[0-9]+\\.[0-9]+" /etc/os-release | tr -d ".")
 if [ ${release} = "ubuntu" ]; then
   if [ ${version} -lt 1804 ]; then
