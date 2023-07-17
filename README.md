@@ -7,4 +7,5 @@ The software is provided "as is", without warranty of any kind.
  - Debian 8 and greater
  - Ubuntu 18.04 and greater
  - CentOS 7 and greater
+ - openSUSE Leap 15.x/SLES 15.x and greater
  
