@@ -1,6 +1,6 @@
 # c2-ec2-netutils
-c2-ec2-netutils contains a set of utilities for managing elastic network interfaces on CROC Cloud EC2.
-Package installed in [Cloud Images] on CROC Cloud.
+c2-ec2-netutils contains a set of utilities for managing elastic network interfaces on K2 Cloud EC2.
+Package installed in [Cloud Images] on K2 Cloud.
 The software is provided "as is", without warranty of any kind.
 
 ##### Supported versions:
