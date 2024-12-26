@@ -26,7 +26,6 @@ Source12:  write_net_rules
 Source13:  rule_generator.functions
 Source14:  ec2net-ifup@.service
 
-URL:       https://ghe.cloud.croc.ru/evgkovalev/c2-ec2-netutils
 BuildArch: noarch
 Requires:  curl
 Requires:  sed
