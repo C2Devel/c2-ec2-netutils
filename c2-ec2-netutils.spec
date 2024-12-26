@@ -19,7 +19,6 @@ Source12:  c2_write_net_rules
 Source13:  c2_rule_generator.functions
 Source14:  ec2net-ifup@.service
 
-URL:       https://github.com/C2Devel/c2-ec2-netutils
 BuildArch: noarch
 Requires:  wicked
 Requires:  curl
